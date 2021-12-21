@@ -11406,13 +11406,13 @@ p {
   }
 }
 header.masthead {
-  padding-top: 10.5rem;
-  padding-bottom: 6rem;
+  padding-top: 12.5rem;
+  padding-bottom: 16rem;
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/header-bg.jpg");
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-position: center center;
   background-size: cover;
 }
@@ -11449,17 +11449,20 @@ header.masthead .masthead-heading {
     margin-bottom: 4rem;
   }
 }
-#portfolio .portfolio-item {
-  max-width: 26rem;
-  margin-left: auto;
-  margin-right: auto;
+#home .home-item {
+  background-color:var(--bs-gray-900) ;
+  max-width: 9rem;
+  margin: 15px;
+  padding: 20px;
+  padding-bottom: 35px;
+  border-radius: 15px;
 }
-#portfolio .portfolio-item .portfolio-link {
-  position: relative;
+#home .home-item .home-link {
+  position: relative;  
   display: block;
   margin: 0 auto;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover {
+#home .home-item .home-link .home-hover {
   display: flex;
   position: absolute;
   width: 100%;
@@ -11469,58 +11472,61 @@ header.masthead .masthead-heading {
   justify-content: center;
   opacity: 0;
   transition: opacity ease-in-out 0.25s;
+  border-radius: 15px;
 }
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
-  font-size: 1.25rem;
+#home .home-item .home-link .home-hover .home-hover-content {
+  width: 30px;
+  font-size: 1.20rem;
   color: white;
 }
-#portfolio .portfolio-item .portfolio-link:hover .portfolio-hover {
+#home .home-item .home-link:hover .home-hover {
   opacity: 1;
 }
-#portfolio .portfolio-item .portfolio-caption {
-  padding: 1.5rem;
+#home .home-item .home-caption {
   text-align: center;
-  background-color: #fff;
+  background-color: var(--bs-body-bg);
+  height: 30px;
 }
-#portfolio .portfolio-item .portfolio-caption .portfolio-caption-heading {
-  font-size: 1.5rem;
+#home .home-item .home-caption .home-caption-heading {
+  font-size: 16px;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
-  margin-bottom: 0;
+  margin: 10px;
 }
-#portfolio .portfolio-item .portfolio-caption .portfolio-caption-subheading {
+#home .home-item .home-caption .home-caption-subheading {
   font-style: italic;
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-.portfolio-modal .modal-dialog {
+.home-modal .modal-dialog {
   margin: 1rem;
-  max-width: 100vw;
+  max-width: 70vw;
 }
-.portfolio-modal .modal-content {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+.home-modal .modal-content {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
   text-align: center;
 }
-.portfolio-modal .modal-content h2, .portfolio-modal .modal-content .h2 {
-  font-size: 3rem;
+.home-modal .modal-content h2, .home-modal .modal-content .h2 {
+  font-size: 35px;
   line-height: 3rem;
 }
-.portfolio-modal .modal-content p.item-intro {
+.home-modal .modal-content p.item-intro {
   font-style: italic;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 25px;
 }
-.portfolio-modal .modal-content p {
+.home-modal .modal-content p {
   margin-bottom: 2rem;
 }
-.portfolio-modal .modal-content ul.list-inline {
+.home-modal .modal-content ul.list-inline {
   margin-bottom: 2rem;
 }
-.portfolio-modal .modal-content img {
-  margin-bottom: 2rem;
+.home-modal .modal-content img {
+  margin-bottom: 1rem;
 }
-.portfolio-modal .close-modal {
+.home-modal .close-modal {
   position: absolute;
   top: 1.5rem;
   right: 1.5rem;
@@ -11529,7 +11535,7 @@ header.masthead .masthead-heading {
   cursor: pointer;
   background-color: transparent;
 }
-.portfolio-modal .close-modal:hover {
+.home-modal .close-modal:hover {
   opacity: 0.3;
 }
 
@@ -11776,4 +11782,108 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* toggle */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 41px;
+  height: 21px;
+  margin-bottom: 7px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: -6px;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 0px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #ffc800;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.searchBox{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.searchInput {
+  padding: 10px;
+  width: 80px;
+  height: 80px;
+  background: none;
+  border: 4px solid #ffd52d;
+  border-radius: 50px;
+  box-sizing: border-box;
+  font-style: italic;
+  font-size: 26px;
+  color: #ffd52d;
+  outline: none;
+  transition: .5s;
+}
+.searchBox:hover input{
+  width: 350px;
+  background: #272133;
+  border-radius: 10px;
+}
+i.searchBoxI{
+  position: relative;
+  top: 50%;
+  right: 15px;
+  transform: translate(-50%,-50%);
+  font-size: 26px;
+  color: #ffd52d;
+  transition: .2s;
+}
+.searchBox:hover i{
+  opacity: 0;
+  z-index: -1;
 }
