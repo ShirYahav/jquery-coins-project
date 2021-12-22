@@ -13,12 +13,38 @@ async function main() {
         await getData('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
             .then(coins => {
                 renderCoins(coins);
-                createModal(coins);
                 coins.forEach((coin) => cryptoCoins.push(coin));
+                getCurrencies(cryptoCoins);
+                console.log(cryptoCoins)
             })
     } catch (err) {
-        throw new Error('Cannot Fetch')    }
+        throw new Error('Cannot Fetch') 
+    }
 }
+
+
+const getCurrencies = () => {
+    cryptoCoins.forEach((coin) =>{
+        const {id} = coin
+        try {
+            fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(coin => {
+                    const value = coin.market_data.current_price
+                    createModal(coin, value.usd, value.eur, value.ils)
+                })
+        } catch (err) {
+            throw new Error('Cannot Fetch 2')  
+        }
+    })
+}
+
+
 
 
 //rendering coins
@@ -50,38 +76,34 @@ const renderCoins = (arrayOfCoins) => {
 
 
 //creating the modal which will be seen when clicking "more info"
-const createModal = (arrOfCoins) => {
-    arrOfCoins.forEach((coin, index) => {
-        const {id, symbol, name, image, ath} = coin
-        if (index < 100) {
-            const homeModal = $(`
-                <div class="home-modal modal fade" id="homeModal${id}" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Crypto details-->
-                                    <h2 class="text-uppercase">${name}</h2>
-                                    <p class="item-intro text-muted">${symbol}</p>
-                                    <img class="img-fluid d-block mx-auto img-responsive" src=${image} alt="..." />
-                                    <p class="currentValue">Current Value ${ath}$</p>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-                                        <i class="fas fa-times me-1"></i>
-                                        Close Crypto
-                                    </button>
-                                </div>
-                            </div>
+const createModal = (coin , usd, eur, ils) => {
+    const { id, symbol, name, image = {} } = coin
+    const homeModal = $(`
+        <div class="home-modal modal fade" id="homeModal${id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <!-- Crypto details-->
+                            <h2 class="text-uppercase">${name}</h2>
+                            <p class="item-intro text-muted">${symbol}</p>
+                            <img class="img-fluid d-block mx-auto img-responsive" src=${image.small} alt="..." />
+                            <p class="currentValue">Current Value ${usd}$</p>
+                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-times me-1"></i>
+                                Close Crypto
+                            </button>
                         </div>
                     </div>
                 </div>
-                </div>
-                </div>
-            `)
-            $('.homeItemPopup').append(homeModal)
-        }
-    })
+            </div>
+        </div>
+        </div>
+        </div>
+    `)
+    $('.homeItemPopup').append(homeModal)
 }
 
 //showing the modal when clicking "more info"
@@ -191,68 +213,3 @@ $('.searchBox').keyup((e)=>{
 
 
 main();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-    // <div class="home-item">
-    //     <a class="home-link" data-bs-toggle="modal" href="#homeModal1">
-    //         <div class="home-hover">
-    //             <div class="home-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-    //         </div>
-    //         <img class="img-fluid" src="" alt="..." />
-    //     </a>
-    //     <div class="home-caption">
-    //         <div class="home-caption-heading">helooooooooooo</div>
-    //         <div class="home-caption-subheading text-muted">Illustration</div>
-    //     </div>
-    // </div>
-
-//             <!-- home Modals-->
-//         <!-- home item 1 modal popup-->
-//         <div class="home-modal modal fade" id="homeModal1" tabindex="-1" role="dialog" aria-hidden="true">
-//         <div class="modal-dialog">
-//         <div class="modal-content">
-//             <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg" alt="Close modal" /></div>
-//             <div class="container">
-//                 <div class="row justify-content-center">
-//                     <div class="col-lg-8">
-//                         <div class="modal-body">
-//                             <!-- Crypto details-->
-//                             <!-- <h2 class="text-uppercase">Project Name</h2>
-//                             <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-//                             <img class="img-fluid d-block mx-auto" src="assets/img/home/1.jpg" alt="..." />
-//                             <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-//                             <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
-//                                 <i class="fas fa-times me-1"></i>
-//                                 Close Project
-//                             </button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div> 
