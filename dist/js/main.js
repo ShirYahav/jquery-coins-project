@@ -23,28 +23,26 @@ async function main() {
 }
 
 
-const getCurrencies = () => {
-    cryptoCoins.forEach((coin) =>{
-        const {id} = coin
-        try {
-            fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
-                headers : {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
+const getCurrencies = (id) => {
+    try {
+        fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(coin => {
+                const value = coin.market_data.current_price
+                createModal(coin, value.usd, value.eur, value.ils)
             })
-                .then(response => response.json())
-                .then(coin => {
-                    const value = coin.market_data.current_price
-                    createModal(coin, value.usd, value.eur, value.ils)
-                })
-        } catch (err) {
-            throw new Error('Cannot Fetch 2')  
-        }
-    })
+    } catch (err) {
+        throw new Error('Cannot Fetch 2')
+    }
 }
 
-
+//see local storage for more info 
+//z-index wich element will come firs , div inside div 
 
 
 //rendering coins
@@ -59,10 +57,10 @@ const renderCoins = (arrayOfCoins) => {
                   <span class="slider round"></span>
                 </label>
                 <a class="home-link" data-toggle="modal" href="#homeModal${id}">
-                <div class="home-hover" id="${id}">
-                    <div class="home-hover-content">More Info</div>
-                </div>
-                <img class="img-fluid" src=${image} alt="..." />
+                    <div class="home-hover" id="${id}">
+                        <div class="home-hover-content">More Info</div>
+                    </div>
+                    <img class="img-fluid" src=${image} alt="..." />
                 </a>
                 <div class="home-caption">
                    <div class="home-caption-heading">${symbol}</div>
@@ -79,19 +77,19 @@ const renderCoins = (arrayOfCoins) => {
 const createModal = (coin , usd, eur, ils) => {
     const { id, symbol, name, image = {} } = coin
     const homeModal = $(`
-        <div class="home-modal modal fade" id="homeModal${id}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="home-modal modal fade styleModal" id="homeModal${id}" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="container">
+        <div class="modal-content justify-content-center">
+            <div class="container justify-content-center">
                 <div class="row justify-content-center">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="modal-body">
                             <!-- Crypto details-->
                             <h2 class="text-uppercase">${name}</h2>
                             <p class="item-intro text-muted">${symbol}</p>
                             <img class="img-fluid d-block mx-auto img-responsive" src=${image.small} alt="..." />
                             <p class="currentValue">Current Value ${usd}$</p>
-                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                            <button class="btn btn-primary btn-sm text-uppercase" data-bs-dismiss="modal" type="button">
                                 <i class="fas fa-times me-1"></i>
                                 Close Crypto
                             </button>
@@ -107,11 +105,19 @@ const createModal = (coin , usd, eur, ils) => {
 }
 
 //showing the modal when clicking "more info"
-$(document).ready ( function () {
-    $(document).on ("click", '.home-hover', function (event) {
+$(document).ready(function () {
+    $(document).on("click", '.home-hover', function (event) {
+        // getCurrencies($(event.target).parent().attr('id')) <--- When you Clicked on the Chiled div of Info Button by accident
+        getCurrencies(event.target.id);
         $(`#homeModal${event.target.id}`).modal('show')
     });
+    $(document).on("click", '.home-hover-content', function (event) {
+        getCurrencies($(event.target).parent().attr('id'))
+        // getCurrencies($(event.target).parent().id);
+        $(`#homeModal${event.target.parentNode.id}`).modal('show')
+    });
 });
+
 
 
 //toggle functionaliy

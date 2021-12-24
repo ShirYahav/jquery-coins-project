@@ -5531,7 +5531,7 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 40%;
   pointer-events: auto;
   background-color: #fff;
   background-clip: padding-box;
@@ -11451,9 +11451,9 @@ header.masthead .masthead-heading {
 }
 #home .home-item {
   background-color:var(--bs-gray-900) ;
-  max-width: 9rem;
+  max-width: 8rem;
   margin: 15px;
-  padding: 20px;
+  padding: 13px;
   padding-bottom: 35px;
   border-radius: 15px;
 }
@@ -11503,8 +11503,8 @@ header.masthead .masthead-heading {
   max-width: 70vw;
 }
 .home-modal .modal-content {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   text-align: center;
 }
 .home-modal .modal-content h2, .home-modal .modal-content .h2 {
