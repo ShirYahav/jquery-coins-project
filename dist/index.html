@@ -7,12 +7,14 @@
         <meta name="author" content="" />
         <title>crypto currencies</title>
         <!-- jquery link -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>        
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <!-- <script src="https://kit.fontawesome.com/afd6aa68df.js" crossorigin="anonymous"></script> -->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
@@ -32,7 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">Live Reports</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#liveReports">Live Reports</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     </ul>
                 </div>
@@ -45,18 +47,24 @@
                 <div class="masthead-heading text-uppercase">crypto currencies</div>
             </div>
         </header>
-        <!-- Home Grid-->
+        <!-- Home-->
         <section class="page-section bg-light" id="home">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">CRYPTO CURRENCIES</h2>
                     <h3 class="section-subheading text-muted">Updated Crypto Currencies</h3>
-                    <div class="searchBox">
-                        <form name="search">
-                            <input type="text" class="searchInput" name="txt"/>
-                        </form>
-                        <i class="fas fa-search searchBoxI"></i>
+                    <div class="containerBar">
+                        <div class="progress-bar"></div>
                     </div>
+                </div>
+            </div>
+            <br/>
+            <div class="container">
+                <div class="searchBox hidden">
+                    <form name="search" class="search">
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="searchInput" id="searchInput" name="txt" />
+                    </form>
                 </div>
                 <div class="row">
                     <div class="coin row d-flex justify-content-around">
@@ -64,32 +72,27 @@
                 </div>
             </div>
         </section>
-        <!-- Team-->
-        <section class="page-section bg-light" id="team">
-            <div class="container">
+        <!-- Live Reports-->
+        <section class="page-section bg-light" id="liveReports">
+            <div class="container" id="chartContainer">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+                    <h2 class="section-heading text-uppercase">Watch Live Reports</h2>
                     <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
-                </div>
-            </div>
+                <canvas id="chart" width="400" height="250"></canvas>            </div>
         </section>
         <!-- About-->
         <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                    <div class="col-lg-4">
+                    <h3 class="section-subheading text-muted">Crypto Currencies Project</h3>
+                    <div class="col-lg-12">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="..." />
-                            <h4>Parveen Anand</h4>
-                            <p class="text-muted">Lead Designer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
+                            <img class="rounded-circle" src="assets/img/team/1.jpg" alt="..." id="myPhoto" />
+                            <h4>Shir Yahav</h4>
+                            <p class="text-muted">Web Developer</p>
+                            <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/shir.yahav.779/"><i class="fab fa-facebook-f"></i></a>
                         </div>
                     </div>
                 </div>
@@ -99,8 +102,9 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <script src="js/main.js"></script>
+        <script type="module" src="js/chart.js"></script>
+        <script type="module" src="js/scripts.js"></script>
+        <script type="module" src="js/main.js"></script>
 
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->

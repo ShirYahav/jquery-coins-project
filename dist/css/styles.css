@@ -103,10 +103,10 @@ hr:not([size]) {
 
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 h1, .h1 {
@@ -119,7 +119,7 @@ h1, .h1 {
 }
 
 h2, .h2 {
-  font-size: calc(1.325rem + 0.9vw);
+  font-size: calc(1.3rem + 0.9vw);
 }
 @media (min-width: 1200px) {
   h2, .h2 {
@@ -146,7 +146,7 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 h6, .h6 {
@@ -347,7 +347,7 @@ button,
 select,
 optgroup,
 textarea {
-  margin: 0;
+  margin: 10px;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -639,6 +639,7 @@ progress {
   padding-left: var(--bs-gutter-x, 0.75rem);
   margin-right: auto;
   margin-left: auto;
+  margin-top: 10px;
 }
 
 @media (min-width: 576px) {
@@ -5493,6 +5494,8 @@ textarea.form-control-lg {
   width: auto;
   margin: 0.5rem;
   pointer-events: none;
+  display: inline-block;
+  vertical-align: middle;
 }
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
@@ -11297,7 +11300,7 @@ body {
 }
 
 p {
-  line-height: 1.75;
+  line-height: 1.1;
 }
 
 .page-section {
@@ -11313,7 +11316,7 @@ p {
   font-weight: 400;
   font-style: italic;
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  margin-bottom: 4rem;
+  margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
@@ -11475,9 +11478,13 @@ header.masthead .masthead-heading {
   border-radius: 15px;
 }
 #home .home-item .home-link .home-hover .home-hover-content {
-  width: 30px;
+  width: 110px;
+  height: 110px;
   font-size: 1.20rem;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 #home .home-item .home-link:hover .home-hover {
   opacity: 1;
@@ -11499,8 +11506,9 @@ header.masthead .masthead-heading {
 }
 
 .home-modal .modal-dialog {
-  margin: 1rem;
-  max-width: 70vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
 }
 .home-modal .modal-content {
   padding-top: 1rem;
@@ -11508,7 +11516,7 @@ header.masthead .masthead-heading {
   text-align: center;
 }
 .home-modal .modal-content h2, .home-modal .modal-content .h2 {
-  font-size: 35px;
+  font-size: 30px;
   line-height: 3rem;
 }
 .home-modal .modal-content p.item-intro {
@@ -11711,8 +11719,8 @@ header.masthead .masthead-heading {
   text-align: center;
 }
 .team-member img {
-  width: 14rem;
-  height: 14rem;
+  width: 15rem;
+  height: 15rem;
   border: 0.5rem solid rgba(0, 0, 0, 0.1);
 }
 .team-member h4, .team-member .h4 {
@@ -11853,7 +11861,9 @@ input:checked + .slider:before {
   position: relative;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%,-62%);
+  display: flex;
+  flex-direction: column;
 }
 .searchInput {
   padding: 10px;
@@ -11869,21 +11879,106 @@ input:checked + .slider:before {
   outline: none;
   transition: .5s;
 }
+
 .searchBox:hover input{
   width: 350px;
   background: #272133;
   border-radius: 10px;
 }
-i.searchBoxI{
-  position: relative;
-  top: 50%;
-  right: 15px;
-  transform: translate(-50%,-50%);
-  font-size: 26px;
-  color: #ffd52d;
-  transition: .2s;
+
+.fa-search{
+  position: absolute;
 }
+
+.svg-inline--fa.fa-w-16 {
+  width: 95px;
+  z-index: -1;
+}
+
 .searchBox:hover i{
   opacity: 0;
   z-index: -1;
+}
+
+form.search{
+  margin-top: 65px;
+  margin-bottom: -50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.styleModal{
+  width: 250px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-modal .modalDialogList{
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.modalContentList{
+  width: 700px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Style the list items */
+ul .LiCoin {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+  position: relative;
+}
+
+/* Add a light grey background color on hover */
+ul .LiCoin:hover {
+  background-color: #eee;
+  cursor: pointer;
+  text-decoration: line-through;
+}
+
+.containerBar{
+  height: 25px;
+  background-color: whitesmoke;
+  position: relative;
+  border-radius: 7px;
+}
+
+.containerBar .progress-bar{
+  position: absolute;
+  height: 100%;
+  border-radius: 7px;
+  background-color: black;
+}
+
+#play-animation{
+  animation: progress-animation 1s forwards;
+}
+
+@keyframes progress-animation {
+  0% { width: 0%;}
+  100% { width: 100%;}
+}
+
+.hidden{
+  display: none;
+}
+
+#myPhoto{
+  object-fit: cover;
 }
