@@ -26,6 +26,7 @@ async function main() {
     }
 }
 
+
 const getCurrencies = (id) => {
     if(getWithExpiry(id) !== null){
         const getCoin = JSON.parse(localStorage.getItem(id))
@@ -90,7 +91,7 @@ const renderCoins = (arrayOfCoins) => {
             const cryptoCoin = $(`   
                 <div class="home-item ${id} hidden">
                 <label class="switch"/>
-                  <input type="checkbox" class="toggle" id=${id}>
+                  <input type="checkbox" class="toggle" id=${symbol}>
                   <span class="slider round"></span>
                 </label>
                 <a class="home-link" data-toggle="modal" href="#homeModal${id}">
@@ -219,6 +220,7 @@ $(document).ready ( function () {
         $(`#${lastCoin}`).prop("checked", false);
         $('.ulCoins').empty()
         listOfChosenCoins.pop()
+        startChart()
     });
 });
 
@@ -228,6 +230,7 @@ $(document).ready ( function () {
         $('.ulCoins').empty()
         $(`#${e.currentTarget.id}`).prop("checked", false);
         onToggleOff(e.currentTarget.id)
+        startChart()
     });
 });
 
@@ -236,7 +239,7 @@ $(document).ready ( function () {
 $(document).ready( function () {
     $(document).change('.switch', function (event) {
         onToggle(event.target.id, event.target.checked)
-
+        startChart()
     });
 });
 
@@ -244,7 +247,6 @@ $(document).ready( function () {
 $('.searchBox').keyup((e)=>{
     $('.coin').empty()
     const searchCoin = e.target.value
-    console.log(searchCoin)
     const filteredCoins = cryptoCoins.filter(coin => {
         return(
             coin.symbol.includes(searchCoin)
@@ -254,4 +256,97 @@ $('.searchBox').keyup((e)=>{
     $('.home-item').removeClass('hidden');
 })
 
+
+
+//charts
+const coinChart = new Chart($("#chart"), {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [
+            {
+                data: [],
+                label: listOfChosenCoins[0],
+                borderColor: "#3e95cd",
+                fill: false
+            }, {
+                data: [],
+                label: listOfChosenCoins[1],
+                borderColor: "#8e5ea2",
+                fill: false
+            }, {
+                data: [],
+                label: listOfChosenCoins[2],
+                borderColor: "#3cba9f",
+                fill: false
+            }, {
+                data: [],
+                label: listOfChosenCoins[3],
+                borderColor: "#e8c3b9",
+                fill: false
+            }, {
+                data: [],
+                label: listOfChosenCoins[4],
+                borderColor: "#c45850",
+                fill: false
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        tooltips: {
+            mode: 'index',
+            intersect: false,
+         },
+         hover: {
+            mode: 'nearest',
+            intersect: true
+          },
+        plugins: {
+            streaming: {
+                duration: 30000,
+            }
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                type: 'realtime' 
+            }]
+        }
+    }
+});
+
+async function price() {
+    try {
+        await getData(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${listOfChosenCoins}&tsyms=USD,EUR`)
+            .then(price => {
+                const coinsPricesArray = Object.entries(price).map(key => ({ ...key[1]}));
+                coinsPricesArray.forEach((coin, i)=>{
+                    coinChart.data.datasets[i].data.push(coin.USD)
+                    coinChart.data.datasets[i].label = listOfChosenCoins[i]
+                })
+                const millies = Date.now()
+                coinChart.data.labels.push(`${Math.floor(millies/1000) % 60}`)
+                coinChart.update()
+            })
+    } catch (err) {
+        throw new Error('Cannot Fetch')
+    }
+}
+
+const startChart = () => {
+    if (listOfChosenCoins.length === 5) {
+        $("#chartDiv").removeClass('hidden')
+        $('.chooseCrypto').addClass('hidden')
+        setInterval(() => {
+            price()
+        }, 2000)
+    } else {
+        $("#chartDiv").addClass('hidden')
+        $('.chooseCrypto').removeClass('hidden')
+    }
+} 
+
+
 main();
+

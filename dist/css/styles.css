@@ -146,7 +146,8 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 1.15rem;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 h6, .h6 {
@@ -601,7 +602,7 @@ progress {
 
 .img-fluid {
   max-width: 100%;
-  height: auto;
+  height: 100px;
 }
 
 .img-thumbnail {
@@ -11455,7 +11456,7 @@ header.masthead .masthead-heading {
 #home .home-item {
   background-color:var(--bs-gray-900) ;
   max-width: 8rem;
-  margin: 15px;
+  margin: 13px;
   padding: 13px;
   padding-bottom: 35px;
   border-radius: 15px;
@@ -11503,6 +11504,9 @@ header.masthead .masthead-heading {
 #home .home-item .home-caption .home-caption-subheading {
   font-style: italic;
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .home-modal .modal-dialog {
@@ -11517,7 +11521,7 @@ header.masthead .masthead-heading {
 }
 .home-modal .modal-content h2, .home-modal .modal-content .h2 {
   font-size: 30px;
-  line-height: 3rem;
+  line-height: 2rem;
 }
 .home-modal .modal-content p.item-intro {
   font-style: italic;
@@ -11910,7 +11914,7 @@ form.search{
 
 .styleModal{
   width: 250px;
-  height: 350px;
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
