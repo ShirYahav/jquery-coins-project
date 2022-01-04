@@ -26,7 +26,7 @@ async function main() {
     }
 }
 
-
+//storing coins in local storage for 2 seconds
 const getCurrencies = (id) => {
     if(getWithExpiry(id) !== null){
         const getCoin = JSON.parse(localStorage.getItem(id))
@@ -145,7 +145,7 @@ const createModal = (coin , usd, eur, ils) => {
     $('.homeItemPopup').append(homeModal)
 }
 
-//showing the modal when clicking "more info"
+//showing the modal when clicking "more info" NOTICE: the modal will show only on second click!! the first changes URL. 
 $(document).ready(function () {
     $(document).on("click", '.home-hover-content', function (event) {
         getCurrencies($(event.target).parent().attr('id'))
@@ -294,24 +294,23 @@ const coinChart = new Chart($("#chart"), {
     },
     options: {
         responsive: true,
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-         },
-         hover: {
-            mode: 'nearest',
-            intersect: true
-          },
         plugins: {
             streaming: {
                 duration: 30000,
             }
         },
         scales: {
-            xAxes: [{
-                display: true,
-                type: 'realtime' 
-            }]
+            x: {
+                type: 'time',
+                time: {
+                    // Luxon format string
+                    tooltipFormat: 'DD T'
+                },
+                title: {
+                    display: true,
+                    text: 'Date'
+                }
+            }
         }
     }
 });
